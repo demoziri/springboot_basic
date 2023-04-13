@@ -17,8 +17,18 @@ public class UsrArticleController {
 	public UsrArticleController() {
 		articlesLastId = 0;
 		articles = new ArrayList<>();
+		
+		makeTestData();
 	}
 	
+	private void makeTestData() {
+		for(int i=1;i<11;i++) {
+			int id = articlesLastId ++;
+			Article article = new Article(id+1,"제목"+i,"내용"+i);
+			articles.add(article);
+		}
+	}
+
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {
