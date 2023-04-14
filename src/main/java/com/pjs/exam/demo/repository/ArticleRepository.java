@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.pjs.exam.demo.vo.Article;
 
+
 @Component
 public class ArticleRepository {
 	private int articlesLastId;

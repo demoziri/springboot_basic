@@ -2,7 +2,6 @@ package com.pjs.exam.demo.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pjs.exam.demo.repository.ArticleRepository;
@@ -10,10 +9,11 @@ import com.pjs.exam.demo.vo.Article;
 
 @Service
 public class ArticleService {
-	@Autowired
+	
 	private ArticleRepository articleRepository;
 	
-	public ArticleService() {
+	public ArticleService(ArticleRepository articleRepository) {
+		this.articleRepository = articleRepository; //Autowired보다 속도면에서 좋다(?)
 		articleRepository.makeTestData();
 	}
 
