@@ -14,7 +14,6 @@ public class ArticleService {
 	
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository; //Autowired보다 속도면에서 좋다(?)
-		articleRepository.makeTestData();
 	}
 
 	public List<Article> getArticles() {
