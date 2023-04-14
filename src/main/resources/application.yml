@@ -3,17 +3,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-<<<<<<< HEAD
     url: jdbc:mysql://127.0.0.1:3306/springboot_basic?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
     username: sbsst
     password: sbs123414
 mybatis:
   type-aliases-package: com.pjs.exam.demo.vo
-=======
-    url: jdbc:mysql://127.0.0.1:3306/sbs_proj_2023?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
-    username: sbsst
-    password: sbs123414
-mybatis:
-  type-aliases-package: com.khj.exam.demo.vo
->>>>>>> ab0604a86cdf9dd08eea42d97fd2fb41bb6bcdc0
-
+  
