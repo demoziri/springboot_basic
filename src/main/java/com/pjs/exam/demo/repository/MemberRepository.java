@@ -52,4 +52,12 @@ public interface MemberRepository {
 			""")
 	public MemberVO getMemberByLoginId(@Param("loginId")String loginId);
 	
+	
+	@Select("""
+			SELECT *
+			FROM `member` AS M
+			WHERE M.name=#{name} AND M.email=#{email}
+			""")
+	public MemberVO getMemberByNameAndEmail(@Param("name")String name, @Param("email")String email);
+	
 }

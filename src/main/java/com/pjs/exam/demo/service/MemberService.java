@@ -21,9 +21,15 @@ public class MemberService {
 
 	public int join(String loginId, String loginPw, 
 			        String name, String nickname, String cellphoneNo, String email) {
+		//아이디 중복체크
 		MemberVO oldmember = getMemberByLoginId(loginId);
 		if(oldmember!=null) {
 			return -1;
+		}
+		
+		oldmember = getMemberByNameAndEmail(nickname, email);
+		if(oldmember!=null) {
+			return -2;
 		}
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 		
@@ -31,6 +37,9 @@ public class MemberService {
 	}
 	private MemberVO getMemberByLoginId(String loginId) {
 		return memberRepository.getMemberByLoginId(loginId);
+	}
+	private MemberVO getMemberByNameAndEmail(String name,String email) {
+		return memberRepository.getMemberByNameAndEmail(name,email);
 	}
 
 	public List<MemberVO> getMemberList(){
