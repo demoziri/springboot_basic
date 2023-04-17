@@ -22,7 +22,7 @@ public class UsrMemberController {
 			String cellphoneNo, String email) {
 		memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 		
-		return "안녕하세요";
+		return "성공!";
 	}
 	
 }

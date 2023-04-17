@@ -1,21 +1,27 @@
 package com.pjs.exam.demo.repository;
 
-import java.util.List;
-
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-
-import com.pjs.exam.demo.vo.MemberVO;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MemberRepository {
 
-	public MemberVO getMember(String id);
 	
-	public List<MemberVO> getMemberList();
-	
-	public void registMember(String loginId, String loginPw, 
-			String name, String nickname, String cellphoneNo, String email ); 
-	
-	
+	@Insert("""
+			INSERT INTO `member`
+			SET regDate = NOW(),
+			updateDate = NOW(),
+			loginId = #{loginId},
+			loginPw = #{loginPw},
+			`name` = #{name},
+			nickname = #{nickname},
+			cellphoneNo = #{cellphoneNo},
+			email = #{email}
+			""")
+	public void join(@Param("loginId")String loginId, @Param("loginPw")String loginPw, 
+			@Param("name")String name, @Param("nickname")String nickname, 
+			@Param("cellphoneNo")String cellphoneNo, @Param("email")String email);
+
 	
 }
