@@ -20,11 +20,19 @@ public class MemberService {
 	}
 
 	public int join(String loginId, String loginPw, 
-			String name, String nickname, String cellphoneNo, String email) {
-		memberRepository.join(loginId, loginId, name, nickname, cellphoneNo, cellphoneNo);
+			        String name, String nickname, String cellphoneNo, String email) {
+		MemberVO oldmember = getMemberByLoginId(loginId);
+		if(oldmember!=null) {
+			return -1;
+		}
+		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 		
-		return memberRepository.getListInsertId();
+		return memberRepository.getLastInsertId();
 	}
+	private MemberVO getMemberByLoginId(String loginId) {
+		return memberRepository.getMemberByLoginId(loginId);
+	}
+
 	public List<MemberVO> getMemberList(){
 		return memberRepository.getMemberList();
 	}

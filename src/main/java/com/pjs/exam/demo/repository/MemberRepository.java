@@ -42,9 +42,14 @@ public interface MemberRepository {
 			""")
 	public MemberVO getMember(@Param("id")int id);
 	
+	@Select("SELECT LAST_INSERT_ID()")
+	public int getLastInsertId();
+
 	@Select("""
-			SELECT LAST_INSERT_ID()
+			SELECT *
+			FROM `member` AS M
+			WHERE M.loginId=#{loginId}
 			""")
-	public int getListInsertId();
+	public MemberVO getMemberByLoginId(@Param("loginId")String loginId);
 	
 }
