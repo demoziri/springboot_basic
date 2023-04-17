@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper	namespace="com.pjs.exam.demo.repository.ArticleRepository">
+<mapper	namespace="com.pjs.exam.demo.repository.MemberRepository">
 	<!--  -->
 	<select id="getArticles" resultType="Article">
 		SELECT * 
@@ -34,9 +34,8 @@
 				title = #{title}
 			</if>
 			<if test="body != null and body != ''">
-				`body` = #{body},
+				`body` = #{body}
 			</if>
-			updateDate = NOW()
 		</set>
 		WHERE id = #{id}
 	</update>
