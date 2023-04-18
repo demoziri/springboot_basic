@@ -26,7 +26,7 @@ public class MemberService {
 		if(oldmember!=null) {
 			return -1;
 		}
-		
+		//이름 + 이메일 중복체크
 		oldmember = getMemberByNameAndEmail(nickname, email);
 		if(oldmember!=null) {
 			return -2;

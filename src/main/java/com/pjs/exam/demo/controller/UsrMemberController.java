@@ -24,7 +24,7 @@ public class UsrMemberController {
 	@ResponseBody
 	public Object doJoin(String loginId, String loginPw, String name, String nickname,
 			String cellphoneNo, String email) {
-		if( Ut.empty(loginId)) {
+		if(Ut.empty(loginId)) {
 			return "loginId(을)를 입력해주세요.";
 		}
 		if(Ut.empty(loginPw)) {
@@ -36,15 +36,13 @@ public class UsrMemberController {
 		if(Ut.empty(nickname)) {
 			return "nickname(을)를 입력해주세요.";
 		}
-		
 		if(Ut.empty(cellphoneNo)) {
 			return "cellphoneNo(을)를 입력해주세요.";
 		}
-		
 		if(Ut.empty(email)) {
 			return "email(을)를 입력해주세요.";
 		}
-		
+
 		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 		
 		if(id==-1) {
@@ -61,7 +59,6 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/getMembers")
 	@ResponseBody
 	public List<MemberVO> getMembers() {
-		
 		return memberService.getMemberList();
 	}
 	
@@ -72,7 +69,7 @@ public class UsrMemberController {
 		MemberVO member = memberService.getMemberById(id);
 		
 		if(member==null) {
-			return "회원 아이디" + id + "가 존재하지 않습니다.";
+			return Ut.f("회원 아이디(%s)가 존재하지 않습니다.",id);
 		}
 		return member;
 	}
