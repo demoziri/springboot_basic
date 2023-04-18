@@ -3,8 +3,6 @@ package com.pjs.exam.demo.vo;
 import lombok.Getter;
 
 public class ResultData<DT> {
-	// S-1, S-2, S-3 
-	// F-1
 	@Getter
 	private String resultCode;
 	@Getter
