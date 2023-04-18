@@ -59,6 +59,7 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
 	public ResultData<MemberVO> doLogout(HttpSession httpSession) {
+		
 		boolean isLogined = false;
 		
 		if(httpSession.getAttribute("loginedMemberId")==null){
@@ -84,7 +85,6 @@ public class UsrMemberController {
 		if(httpSession.getAttribute("loginedMemberId")!=null){
 			isLogined = true;
 		}
-		
 		if(isLogined) {
 			return ResultData.from("F-5", "이미 로그인되었습니다.");
 		}
@@ -104,7 +104,7 @@ public class UsrMemberController {
 			return ResultData.from("F-4", "비밀번호가 일치하지 않습니다.");
 		}
 		
-		httpSession.setAttribute("loginedMemberId", member.getLoginId());
+		httpSession.setAttribute("loginedMemberId", member.getId());
 			
 		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()));
 	}
