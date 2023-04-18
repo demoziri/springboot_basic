@@ -15,7 +15,6 @@ public class ResultData {
 	private ResultData() {}
 	
 	public static ResultData from(String resultCode, String msg) {
-		
 		return from(resultCode,msg,null);
 	}
 	
