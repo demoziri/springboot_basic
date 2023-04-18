@@ -34,6 +34,17 @@ title = '제목3',
 
 SELECT * FROM article;
 
+#게시물 테이블에 회원정보 추가
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
+
+# 기존 게시물의 작성자를 2번으로 지정
+UPDATE article 
+SET memberId = 2
+WHERE memberId = 0;
+
+
+
+#member
 
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -60,8 +71,6 @@ authLevel = 7,
 nickname = '관리자',
 cellphoneNo = '01012341234',
 email = 'admin@sbs.com';
-
-#member
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
