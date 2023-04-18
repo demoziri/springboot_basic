@@ -39,7 +39,7 @@ public class MemberService {
 		
 		return ResultData.from("S-1", "회원가입 완료!!!!!!.", id);
 	}
-	private MemberVO getMemberByLoginId(String loginId) {
+	public MemberVO getMemberByLoginId(String loginId) {
 		return memberRepository.getMemberByLoginId(loginId);
 	}
 	private MemberVO getMemberByNameAndEmail(String name,String email) {
