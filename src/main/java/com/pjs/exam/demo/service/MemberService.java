@@ -37,7 +37,7 @@ public class MemberService {
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 		int id = memberRepository.getLastInsertId();
 		
-		return ResultData.from("S-1", "회원가입 완료!!!!!!.", id);
+		return ResultData.from("S-1", "회원가입 완료!!!!!!.", "id", id);
 	}
 	public MemberVO getMemberByLoginId(String loginId) {
 		return memberRepository.getMemberByLoginId(loginId);
