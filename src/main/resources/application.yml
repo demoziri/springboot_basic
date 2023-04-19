@@ -13,3 +13,9 @@ spring:
 mybatis:
   type-aliases-package: com.pjs.exam.demo.vo
   
+custom:
+  logging:
+    dir: log
+    level: debug
+   
+  
