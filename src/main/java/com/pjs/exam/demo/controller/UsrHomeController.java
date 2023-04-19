@@ -10,7 +10,7 @@ public class UsrHomeController {
 	@RequestMapping("/usr/home/main")
 	public String showMain() {
 		
-		return "usr/home/main";
+		return "usr/home/main"; //jsp
 	}
 	
 	@RequestMapping("/")
