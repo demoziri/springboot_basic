@@ -20,6 +20,9 @@ public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
 	
+	public UsrArticleController(ArticleService articleService) {
+		this.articleService=articleService;
+	}
 	//액션 메서드 시작
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
