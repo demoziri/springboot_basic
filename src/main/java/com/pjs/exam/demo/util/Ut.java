@@ -19,7 +19,7 @@ public class Ut {
 	}
 
 	public static String jsHistoryBack(String msg) {
-		return """
+		return Ut.f("""
 				<script>
 				const msg = '%s'.trim();
 				if (msg.length > 0) {
@@ -27,7 +27,7 @@ public class Ut {
 				}
 				history.back();
 				</script>
-				""";
+				""", msg);
 	}
 	
 	public static String jsReplace(String msg, String uri) {
