@@ -2,15 +2,16 @@ package com.pjs.exam.demo.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pjs.exam.demo.service.ArticleService;
+import com.pjs.exam.demo.service.BoardService;
 import com.pjs.exam.demo.util.Ut;
 import com.pjs.exam.demo.vo.Article;
+import com.pjs.exam.demo.vo.Board;
 import com.pjs.exam.demo.vo.ResultData;
 import com.pjs.exam.demo.vo.Rq;
 
@@ -18,11 +19,13 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrArticleController {
-	@Autowired
 	private ArticleService articleService;
+	private BoardService boardService;
 	
-	public UsrArticleController(ArticleService articleService) {
-		this.articleService=articleService;
+	
+	public UsrArticleController(ArticleService articleService, BoardService boardService) {
+		this.articleService = articleService;
+		this.boardService = boardService;
 	}
 	
 	
@@ -57,17 +60,19 @@ public class UsrArticleController {
 	
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model) {
+	public String showList(HttpServletRequest req, Model model, int boardId) {
+		Board board = boardService.getBoardById(boardId);
 		Rq rq = (Rq)req.getAttribute("rq");
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
+		model.addAttribute("board",board);
 		model.addAttribute("articles",articles);
-		
 		return "usr/article/list";
 	}
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
 		Rq rq = (Rq)req.getAttribute("rq");
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(),id);
+		
 		model.addAttribute(article);
 		
 		return "usr/article/detail";

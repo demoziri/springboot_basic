@@ -133,4 +133,4 @@ WHERE boardId = 0;
 
 UPDATE article
 SET boardId=2
-WHERE id IN(12,17,19);s
+WHERE id IN(12,17,19);
