@@ -11,7 +11,9 @@ import com.pjs.exam.demo.service.MemberService;
 import com.pjs.exam.demo.util.Ut;
 import com.pjs.exam.demo.vo.MemberVO;
 import com.pjs.exam.demo.vo.ResultData;
+import com.pjs.exam.demo.vo.Rq;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -77,19 +79,15 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/login")
 	public String showLogin(HttpSession httpSession) {
-		
 		return "/usr/member/login";
 	}
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
-		boolean isLogined = false;
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
+		Rq rq = (Rq)req.getAttribute("rq");
 		
-		if(httpSession.getAttribute("loginedMemberId")!=null){
-			isLogined = true;
-		}
-		if(isLogined) {
+		if(rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그인되었습니다.");
 		}
 		
@@ -108,7 +106,7 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
-		httpSession.setAttribute("loginedMemberId", member.getId());
+		rq.login(member);
 			
 		return Ut.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), "/");
 	}
