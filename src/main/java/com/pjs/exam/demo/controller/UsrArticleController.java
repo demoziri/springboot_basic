@@ -137,6 +137,7 @@ public class UsrArticleController {
 		if(actorCanModifyRd.isFail()) {
 			return Ut.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
+		
 		articleService.modifyArticle(id, title, body);
 		
 		return Ut.jsReplace(Ut.f("%d번 글이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
