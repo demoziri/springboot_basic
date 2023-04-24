@@ -17,8 +17,12 @@ public class ArticleService {
 		this.articleRepository = articleRepository; //Autowired보다 속도면에서 좋다(?)
 	}
 
-	public List<Article> getForPrintArticles(int actorId, int boardId) {
-		List<Article> articles = articleRepository.getForPrintArticles(boardId);
+	public List<Article> getForPrintArticles(int actorId, int boardId, int itemsCountInAPage, int page) {
+		
+		int limitStart = (page -1) * itemsCountInAPage;
+		int limitTake = itemsCountInAPage;
+		
+		List<Article> articles = articleRepository.getForPrintArticles(boardId,limitStart,limitTake);
 		
 		for( Article article : articles ) {
 			updateForPrintData(actorId,article);

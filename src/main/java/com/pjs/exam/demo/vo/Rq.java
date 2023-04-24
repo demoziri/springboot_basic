@@ -91,6 +91,12 @@ public class Rq {
 	public String jsReplace(String msg, String uri) {
 		return Ut.jsReplace(msg, uri);
 	}
+
+
+	public void initOnBeforeActionInterceptor() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

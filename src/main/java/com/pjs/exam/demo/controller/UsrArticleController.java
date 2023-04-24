@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pjs.exam.demo.service.ArticleService;
@@ -14,8 +15,6 @@ import com.pjs.exam.demo.vo.Article;
 import com.pjs.exam.demo.vo.Board;
 import com.pjs.exam.demo.vo.ResultData;
 import com.pjs.exam.demo.vo.Rq;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrArticleController {
@@ -41,6 +40,7 @@ public class UsrArticleController {
 		if(Ut.empty(body)) {
 			return rq.jsHistoryBack("body(을)를 입력해주세요");
 		}
+		
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), boardId, title,body);
 		int id = (int)writeArticleRd.getData1();
 		
@@ -53,20 +53,22 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/write")
 	public String showWrite() {
+		
 		return "usr/article/write";
 	}
 	
 	
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, int boardId) {
+	public String showList(Model model, @RequestParam(defaultValue="1")int boardId,@RequestParam(defaultValue="1")int page) {
 		Board board = boardService.getBoardById(boardId);
 		
 		if(board == null) {
 			return rq.historyBackJsOnview(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
 		}
 		int articlesCount = articleService.getArticlesCount(boardId);
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(),boardId);
+		int itemsCountInAPage = 10;
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(),boardId,itemsCountInAPage, page);
 		model.addAttribute("articlesCount",articlesCount);
 		model.addAttribute("board",board);
 		model.addAttribute("articles",articles);
