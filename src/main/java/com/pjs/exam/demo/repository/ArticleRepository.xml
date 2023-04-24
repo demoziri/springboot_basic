@@ -6,7 +6,10 @@
 		SELECT A.*, M.nickname AS extra_writerName 
 		FROM article as A
 		LEFT JOIN member AS M
-		ON A.memberId = M.id 
+		ON A.memberId = M.id
+		<if test="boardId != 0">
+			WHERE A.boardId = #{boardId}
+		</if>
 		ORDER BY id DESC
 	</select>
 	

@@ -12,7 +12,7 @@ import com.pjs.exam.demo.vo.Article;
 public interface ArticleRepository {
 	public Article getForPrintArticle(@Param("id") int id);
 	
-	public List<Article> getForPrintArticles();
+	public List<Article> getForPrintArticles(@Param("boardId")int boardID);
 	
 	public void writeArticle(@Param("memberId")int memberId, @Param("title")String title, @Param("body")String body);
 	
