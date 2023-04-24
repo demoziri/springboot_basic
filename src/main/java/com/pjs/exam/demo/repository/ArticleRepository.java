@@ -21,6 +21,8 @@ public interface ArticleRepository {
 	public void modifyArticle(@Param("id")int id, @Param("title")String title, @Param("body")String body);
 	
 	public int getLastInsertId();
+
+	public int getArticlesCount(@Param("boardId")int boardId);
 	
 	
 }

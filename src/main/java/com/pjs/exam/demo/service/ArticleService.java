@@ -80,4 +80,9 @@ public class ArticleService {
 		return ResultData.from("S-1", "수정이 가능합니다.");
 	}
 
+	public int getArticlesCount(int boardId) {
+		int articlesCount = articleRepository.getArticlesCount(boardId);
+		return articlesCount;
+	}
+
 }
