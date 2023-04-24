@@ -14,19 +14,29 @@
         <tbody>
          
           <tr>
+            <th>게시판</th>
+            <td>
+           <select name="boardId" class="select select-bordered max-w-x">
+           <option selected disabled>선택</option>
+           <option value="1">공지</option>
+           <option value="2">자유</option>
+           </select>
+			</td>
+          </tr>
+          <tr>
             <th>작성자</th>
             <td>${rq.loginedMember.nickname}</td>
           </tr>
           <tr>
             <th>제목</th>
             <td>
-            	<input type="text" class="w-96 input input-bordered" name="title" placeholder="제목" value="${article.title}" />
+            	<input required="required" type="text" class="w-96 input input-bordered" name="title" placeholder="제목" value="${article.title}" />
             </td>
           </tr>
           <tr>
             <th>내용</th>
             <td>
-              <textarea type="text" class="w-full textarea textarea-bordered" name="body" placeholder="내용" >${article.body}</textarea>
+              <textarea required="required"  type="text" class="w-full textarea textarea-bordered" name="body" placeholder="내용" >${article.body}</textarea>
             </td>
           </tr>
           <tr>

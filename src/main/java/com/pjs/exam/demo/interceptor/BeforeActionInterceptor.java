@@ -12,14 +12,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class BeforeActionInterceptor implements HandlerInterceptor{
-	// Action 실행전
+	//Action 실행전
 	@Autowired
 	private MemberService memberService;
 	
+	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
-		Rq rq = new Rq(req,resp,memberService);
-		req.setAttribute("rq", rq);
 		
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}	
