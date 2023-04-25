@@ -10,6 +10,14 @@ params.id = parseInt('${param.id}');
 
 <script>
 function ArticleDetail__increaseHitCount() {
+	const localStorageKey = 'article__' + params.id + '__viewDone';
+	
+	if(localStorage.getItem(localStorageKey)) {
+		return;
+	}
+	//기본
+	localStorage.setItem(localStorageKey,true);
+	
 	$.get(
 		'../article/doIncreaseHitCountRd',
 		{
