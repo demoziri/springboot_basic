@@ -22,6 +22,23 @@
 		<if test="boardId != 0">
 			WHERE A. boardId = #{boardId}
 		</if>
+		<if test="searchKeyword != ''">
+		 <choose>
+		   <when test="searchKeywordTypeCode == 'title'">
+		        AND A.title LIKE CONCAT('%',#{searchKeyword},'%')
+		   </when>
+		   <when test="searchKeywordTypeCode == 'body'">
+		        AND A.title LIKE CONCAT('%',#{searchKeyword},'%')
+		   </when>
+		   <otherwise>
+		   		AND (
+			   		A.title LIKE CONCAT('%',#{searchKeyword},'%')
+			   		OR
+			   		A.title LIKE CONCAT('%',#{searchKeyword},'%')
+		   		)
+		   </otherwise>
+		 </choose>
+		</if>
 	</select>
 	
 	<select id="getForPrintArticle" resultType="Article">

@@ -22,7 +22,7 @@ public interface ArticleRepository {
 	
 	public int getLastInsertId();
 
-	public int getArticlesCount(@Param("boardId")int boardId);
+	public int getArticlesCount(@Param("boardId")int boardId, @Param("searchKeywordTypeCode")String searchKeywordTypeCode, @Param("searchKeyword")String searchKeyword);
 	
 	
 }
