@@ -103,10 +103,6 @@ public class UsrArticleController {
 
 	}
 	
-	
-	
-	
-	
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
 	public ResultData<Article> getArticle(int id) {
