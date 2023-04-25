@@ -52,7 +52,8 @@ public class Rq {
 
 
 	public void printHistoryBackJs(String msg) {
-		Ut.jsHistoryBack(msg);
+		resp.setContentType("text/html; charset=UTF-8");
+		print(Ut.jsHistoryBack(msg));
 	}
 	
 	public void print (String str) {
