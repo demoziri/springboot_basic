@@ -12,8 +12,11 @@ public class ResultData<DT> {
 	private String data1Name;
 	@Getter
 	private DT data1;
+	@Getter
+	private String data2Name;
+	@Getter
+	private Object data2;
 	
-	private ResultData() {}
 	
 	public static ResultData from(String resultCode, String msg) {
 		return from(resultCode,msg,null,null);
@@ -39,6 +42,11 @@ public class ResultData<DT> {
 	
 	public boolean isFail() {
 		return isSuccess() == false;
+	}
+
+	public void setData2(String dataName, Object data) {
+		data2Name = dataName;
+		data2 = data;
 	}
 
 
