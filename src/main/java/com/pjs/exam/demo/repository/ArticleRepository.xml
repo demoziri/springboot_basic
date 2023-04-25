@@ -27,8 +27,8 @@
 		   </otherwise>
 		 </choose>
 		</if>
-		ORDER BY id DESC
-		<if test="limitStart != -1">
+		ORDER BY A.id DESC
+		<if test="limitTake != -1">
 			LIMIT #{limitStart},#{limitTake}
 		</if>
 	</select>
@@ -100,6 +100,12 @@
 		FROM article 
 		where id = #{id}
 	</delete>
+	
+	<update id="increaseHitCount">
+		UPDATE article 
+		SET hitCount = hitCount + 1
+		WHERE id = #{id}
+	</update>
 	
 	
 </mapper> 
