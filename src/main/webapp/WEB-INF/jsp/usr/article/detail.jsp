@@ -70,6 +70,7 @@ $(function() {
             		<span>&nbsp;</span>
             		
             		<c:if test="${actorCanMakeReactionPoint}">
+            		${actorCanMakeReactionPoint}
             		<button class="btn btn-xs btn-outline btn-primary">좋아요👍</button>
             		<span>&nbsp;</span>
             		<button class="btn btn-xs btn-outline btn-secondary">싫어요👎</button>
