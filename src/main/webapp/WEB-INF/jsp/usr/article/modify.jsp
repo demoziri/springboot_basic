@@ -28,6 +28,18 @@
             <th>작성자</th>
             <td>${article.extra_writerName}</td>
           </tr>
+           <tr>
+            <th>조회수</th>
+            <td>
+            	<span class="text-blue-700 article-detail__hit-count">${article.hitCount}</span>
+            </td>
+          </tr>
+          <tr>
+            <th>추천수</th>
+            <td>
+            	<span class="text-blue-700">${article.goodReactionPoint}</span>
+            </td>
+          </tr>
           <tr>
             <th>제목</th>
             <td>
