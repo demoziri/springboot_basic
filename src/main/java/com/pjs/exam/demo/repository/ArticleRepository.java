@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import com.pjs.exam.demo.vo.Article;
 
@@ -27,6 +28,10 @@ public interface ArticleRepository {
 	public int increaseHitCount(@Param("id")int id);
 
 	public int getArticleHitCount(int id);
+
+	public int increaseGoodReactionPoint(int relId);
+	
+	public int increaseBadReactionPoint(int relId);
 
 	
 	

@@ -3,24 +3,58 @@ package com.pjs.exam.demo.service;
 import org.springframework.stereotype.Service;
 
 import com.pjs.exam.demo.repository.ReactionPointRepository;
+import com.pjs.exam.demo.vo.ResultData;
 
 @Service
 public class ReactionPointService {
+	
+	
+	private ArticleService articleService;
 	private ReactionPointRepository reactionPointRepository;
 	
-	public ReactionPointService(ReactionPointRepository reactionPointRepository) {
+	public ReactionPointService(ReactionPointRepository reactionPointRepository,ArticleService articleService) {
 		this.reactionPointRepository = reactionPointRepository;
+		this.articleService = articleService;
 	}
 
 
 
-	public boolean actorCanMakeReactionPoint(int actorId,String relTypeCode,int id) {
+	public ResultData actorCanMakeReactionPoint(int actorId,String relTypeCode,int relId) {
 		if( actorId == 0) {
-			return false;
+			return ResultData.from("F-1", "로그인 후 이용해주세요");
 		}
-		return reactionPointRepository.actorCanMakeReactionPoint(actorId, relTypeCode, id)==0;
+		
+		int sumReactionPointByMemberId = reactionPointRepository.getSumReactionPointByMemberId(relId, relTypeCode, actorId);
+		
+		if(sumReactionPointByMemberId!=0) {
+			return ResultData.from("F-2", "리액션이 불가능합니다.","sumReactionPointByMemberId",sumReactionPointByMemberId);
+		}
+		
+		return ResultData.from("S-1", "리액션이 가능합니다.","sumReactionPointByMemberId",sumReactionPointByMemberId);
+	}
+
+
+
+	public ResultData addGoodReactionPoint(int actorId, String relTypeCode, int relId) {
+		reactionPointRepository.addGoodReactionPoint(actorId, relTypeCode, relId);
+		switch (relTypeCode.trim()) {
+		case "article":
+			articleService.increaseGoodReactionPoint(relId);
+		}
+		
+		return ResultData.from("S-1", "좋아요 처리 되었습니다.");
 	}
 	
+	public ResultData addBadReactionPoint(int actorId, String relTypeCode, int relId) {
+		reactionPointRepository.addBadReactionPoint(actorId, relTypeCode, relId);
+		
+		switch (relTypeCode.trim()) {
+		case "article":
+			articleService.increaseBadReactionPoint(relId);
+		}
+		
+		return ResultData.from("S-1", "싫어요 처리 되었습니다.");
+	}
 	
 	
 }

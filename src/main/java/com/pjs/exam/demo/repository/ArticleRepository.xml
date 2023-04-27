@@ -114,13 +114,23 @@
 		WHERE id=#{id}
 	</select>
 	
-	<select id="actorCanMakeReactionPoint" resultType="int">
-		SELECT IFNULL(SUM(RP.point),0) AS S
-		FROM reactionPoint AS RP
-		WHERE RP.relTypeCode = 'article'
-		AND RP.id = #{id}
-		AND RP.memberId = #{memberId}
-	</select>
+
+	
+	<update id="increaseGoodReactionPoint">
+		UPDATE article
+		SET goodReactionPoint = goodReactionPoint + 1
+		WHERE id = #{id}
+	</update>
+
+	<update id="increaseBadReactionPoint">
+		UPDATE article
+		SET badReactionPoint = badReactionPoint + 1
+		WHERE id = #{id}
+	</update>
+	
+	
+	
+	
 	
 	
 </mapper> 

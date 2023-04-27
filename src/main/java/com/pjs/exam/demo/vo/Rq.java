@@ -92,12 +92,25 @@ public class Rq {
 	public String jsReplace(String msg, String uri) {
 		return Ut.jsReplace(msg, uri);
 	}
-
-
-	public void initOnBeforeActionInterceptor() {
-		// TODO Auto-generated method stub
+	
+	public String getCurrentUri() {
+		String currentUri = req.getRequestURI(); // /usr/article
+		String queryString = req.getQueryString(); // id=1 ...
 		
+		if(queryString != null && queryString.length() > 0 ) {
+			currentUri += "?" + queryString;
+		}
+		return currentUri;
 	}
+	
+	public String getEncodedCurrentUri() {
+		return Ut.getUriEncoded(getCurrentUri());
+	}
+
+
+	public void initOnBeforeActionInterceptor() {}
+	
+	
 }
 
 
