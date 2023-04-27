@@ -208,6 +208,7 @@ $(function() {
           <col width="100"/>
           <col width="100"/>
           <col width="50"/>
+          <col width="100"/>
           <col width="150"/>
           <col />
         </colgroup>
@@ -218,6 +219,7 @@ $(function() {
             <th>수정날짜</th>
             <th>추천</th>
             <th>작성자</th>
+            <th>비고</th>
             <th>제목</th>
           </tr>
         </thead>
@@ -229,6 +231,15 @@ $(function() {
               <td>${reply.forPrintType1UpdateDate()}</td>
               <td>${reply.goodReactionPoint}</td>
               <td>${reply.extra_writerName}</td>
+              <td>
+              	<c:if test="${reply.extra_actorCanModify }">
+				<a class="btn btn-link"  href="../reply/modify?id=${reply.id }">수정</a>
+				</c:if>
+				
+				<c:if test="${reply.extra_actorCanDelete }">
+				<a class="btn btn-link" onclick="if(confirm('정말 삭제하시겠습니까?')==false)return false;" href="../reply/doDelete?id=${reply.id }">삭제</a>
+				</c:if>
+              </td>
               <td>${reply.forPrintBody}</td>
             </tr>
           </c:forEach>

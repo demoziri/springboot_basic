@@ -48,6 +48,17 @@ public class ArticleService {
 		article.setExtra_actorCanModify(actorCanModifyRd.isSuccess());
 	}
 
+	public ResultData actorCanModify(int actorId, Article article) {
+		if(article == null) {
+			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
+			
+		}
+		if(article.getMemberId()!=actorId) {
+			return ResultData.from("F-2", "권한이 없습니다.");
+		}
+		return ResultData.from("S-1", "수정이 가능합니다.");
+	}
+	
 	public ResultData actorCanDelete(int actorId, Article article) {
 		if(article == null) {
 			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
@@ -73,16 +84,6 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%d번 게시물이 수정되었습니다.", id), "article",article);
 	}
 
-	public ResultData actorCanModify(int actorId, Article article) {
-		if(article == null) {
-			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
-			
-		}
-		if(article.getMemberId()!=actorId) {
-			return ResultData.from("F-2", "권한이 없습니다.");
-		}
-		return ResultData.from("S-1", "수정이 가능합니다.");
-	}
 
 	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword) {
 		int articlesCount = articleRepository.getArticlesCount(boardId,searchKeywordTypeCode,searchKeyword);
