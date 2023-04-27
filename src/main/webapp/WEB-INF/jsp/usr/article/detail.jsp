@@ -33,29 +33,31 @@ $(function() {
 </script>
 
 <script>
+	//댓글 작성 관련
 	let ReplyWrite_submitFormDone = false;
-	function ReplyWrite_submitForm(form){
-		if( ReplyWrite_submitFormDone ) {
+	function ReplyWrite_submitForm(form) {
+		if ( ReplyWrite_submitFormDone ) {
 			return;
-		}
-		//좌우공백 제거
+		}    
+		
+		// 좌우공백 제거
 		form.body.value = form.body.value.trim();
 		
-		if(form.body.value == 0){
-			alert('댓글을 입력해주세요');
+		if ( form.body.value.length == 0 ) {
+			alert('댓글을 입력해주세요.');
 			form.body.focus();
 			return;
 		}
 		
-		if(form.body.value < 2){
-			alert('댓글을 두 글자 이상 입력해주세요.');
+		if ( form.body.value.length < 2 ) {
+			alert('댓글을 2자 이상 입력해주세요.');
 			form.body.focus();
 			return;
 		}
+		
 		ReplyWrite_submitFormDone = true;
-		form.submit();
+		form.submit();		
 	}
-
 </script>
 
 
@@ -159,7 +161,7 @@ $(function() {
 
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-	  <h1>댓글작성</h1>
+	  <h1>댓글작성 + ${article.id}</h1>
 	  <c:if test="${rq.logined }">
 	   <form class="table-box-type-1" action="../reply/doWrite" method="POST" onsubmit="ReplyWrite_submitForm(this); return false;">
 		<input type="hidden" name="relTypeCode" value="article"/>
@@ -177,7 +179,7 @@ $(function() {
 	          <tr>
 	            <th>내용</th>
 	            <td>
-	              <textarea required="required"  type="text" class="w-full textarea textarea-bordered" name="body" placeholder="내용" ></textarea>
+	              <textarea class="w-full textarea textarea-bordered" name="body" placeholder="내용" ></textarea>
 	            </td>
 	          </tr>
 	          <tr>
@@ -191,11 +193,14 @@ $(function() {
 	  </form>
 	  </c:if>
 	  <c:if test="${rq.notLogined }">
-	  <a href="btn btn-link" href="/usr/member/login">로그인</a>후 이용해주세요.
+	  <a class="btn btn-link" href="/usr/member/login">로그인</a>후 이용해주세요.
 	  </c:if>
 	</div>
-	
 </section>
-
+<section class="mt-5">
+	<div class="container mx-auto px-3">
+		<h1>댓글 리스트 (${repliesCount })</h1>
+	</div>
+</section>
 
 <%@include file="../common/foot.jspf" %>

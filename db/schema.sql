@@ -292,3 +292,23 @@ relId = 1,
 `body` = '댓글123';
 
 SELECT * FROM reply;
+
+
+#댓글에 좋아요 수, 싫어요 수 컬럼 추가
+ALTER TABLE reply
+ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+ALTER TABLE reply
+ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+
+/*alter table `reply` add index(`relTypeCode`,`relId`);*/
+
+EXPLAIN SELECT R.*,
+M.nickname AS extra_writerName
+FROM reply AS R
+LEFT JOIN `member` AS M
+ON r.memberId = M.id
+WHERE R.relTypeCode='article'
+AND R.relId=1
+ORDER BY R.id DESC;
