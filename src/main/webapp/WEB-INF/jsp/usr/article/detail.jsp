@@ -32,6 +32,34 @@ $(function() {
 })
 </script>
 
+<script>
+	let ReplyWrite_submitFormDone = false;
+	function ReplyWrite_submitForm(form){
+		if( ReplyWrite_submitFormDone ) {
+			return;
+		}
+		//좌우공백 제거
+		form.body.value = form.body.value.trim();
+		
+		if(form.body.value == 0){
+			alert('댓글을 입력해주세요');
+			form.body.focus();
+			return;
+		}
+		
+		if(form.body.value < 2){
+			alert('댓글을 두 글자 이상 입력해주세요.');
+			form.body.focus();
+			return;
+		}
+		ReplyWrite_submitFormDone = true;
+		form.submit();
+	}
+
+</script>
+
+
+
 <section class="mt-5">
 	<div class="container mx-auto px-3">
     <div class="table-box-type-1">
@@ -133,7 +161,7 @@ $(function() {
 	<div class="container mx-auto px-3">
 	  <h1>댓글작성</h1>
 	  <c:if test="${rq.logined }">
-	   <form class="table-box-type-1" action="../reply/doWrite" method="POST">
+	   <form class="table-box-type-1" action="../reply/doWrite" method="POST" onsubmit="ReplyWrite_submitForm(this); return false;">
 		<input type="hidden" name="relTypeCode" value="article"/>
 		<input type="hidden" name="relId" value="${article.id}"/>
 	      <table>
