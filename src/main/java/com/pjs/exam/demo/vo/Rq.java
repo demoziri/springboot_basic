@@ -49,7 +49,10 @@ public class Rq {
 
 		this.req.setAttribute("rq",this);
 	}
-
+	
+	public boolean isNotLogined() {
+		return !isLogined;
+	}
 
 	public void printHistoryBackJs(String msg) {
 		resp.setContentType("text/html; charset=UTF-8");
