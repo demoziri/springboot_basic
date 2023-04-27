@@ -70,20 +70,17 @@ $(function() {
             		<span>&nbsp;</span>
             		
             		<c:if test="${actorCanMakeReaction}">
-            		<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article
-            		&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-outline btn-primary">
+            		<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-outline btn-primary">
             			좋아요👍
             		</a>
             		<span>&nbsp;</span>
-            		<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article
-            		&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-outline btn-secondary">
+            		<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-outline btn-secondary">
             			싫어요👎
             		</a>
             		</c:if>
             		
             		<c:if test="${actorCanCancelGoodReaction}">
-            		<a href="/usr/reactionPoint/doCancelGoodReaction?relTypeCode=article
-            		&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-primary">
+            		<a href="/usr/reactionPoint/doCancelGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-primary">
             			좋아요👍
             		</a>
             		<span>&nbsp;</span>
@@ -97,8 +94,7 @@ $(function() {
             			좋아요👍
             		</a>
             		<span>&nbsp;</span>
-            		<a href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=article
-            		&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-secondary">
+            		<a href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs btn-secondary">
             			싫어요👎
             		</a>
             		</c:if>
