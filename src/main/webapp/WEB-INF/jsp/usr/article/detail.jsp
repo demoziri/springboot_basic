@@ -32,33 +32,6 @@ $(function() {
 })
 </script>
 
-<script>
-	//댓글 작성 관련
-	let ReplyWrite_submitFormDone = false;
-	function ReplyWrite_submitForm(form) {
-		if ( ReplyWrite_submitFormDone ) {
-			return;
-		}    
-		
-		// 좌우공백 제거
-		form.body.value = form.body.value.trim();
-		
-		if ( form.body.value.length == 0 ) {
-			alert('댓글을 입력해주세요.');
-			form.body.focus();
-			return;
-		}
-		
-		if ( form.body.value.length < 2 ) {
-			alert('댓글을 2자 이상 입력해주세요.');
-			form.body.focus();
-			return;
-		}
-		
-		ReplyWrite_submitFormDone = true;
-		form.submit();		
-	}
-</script>
 
 
 
@@ -159,9 +132,37 @@ $(function() {
 	</div>
 </section>
 
+<script>
+	//댓글 작성 관련
+	let ReplyWrite_submitFormDone = false;
+	function ReplyWrite_submitForm(form) {
+		if ( ReplyWrite_submitFormDone ) {
+			return;
+		}    
+		
+		// 좌우공백 제거
+		form.body.value = form.body.value.trim();
+		
+		if ( form.body.value.length == 0 ) {
+			alert('댓글을 입력해주세요.');
+			form.body.focus();
+			return;
+		}
+		
+		if ( form.body.value.length < 2 ) {
+			alert('댓글을 2자 이상 입력해주세요.');
+			form.body.focus();
+			return;
+		}
+		
+		ReplyWrite_submitFormDone = true;
+		form.submit();		
+	}
+</script>
+
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-	  <h1>댓글작성 + ${article.id}</h1>
+	  <h1>댓글작성</h1>
 	  <c:if test="${rq.logined }">
 	   <form class="table-box-type-1" action="../reply/doWrite" method="POST" onsubmit="ReplyWrite_submitForm(this); return false;">
 		<input type="hidden" name="relTypeCode" value="article"/>
@@ -199,7 +200,40 @@ $(function() {
 </section>
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-		<h1>댓글 리스트 (${repliesCount })</h1>
+		<h1>댓글 리스트 (${replies.size()})</h1>
+		
+		 <table class="table table-fixed w-full mt-2">
+        <colgroup>	
+          <col width="50"/>
+          <col width="100"/>
+          <col width="100"/>
+          <col width="50"/>
+          <col width="150"/>
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>작성날짜</th>
+            <th>수정날짜</th>
+            <th>추천</th>
+            <th>작성자</th>
+            <th>제목</th>
+          </tr>
+        </thead>
+        <tbody>
+          <c:forEach var="reply" items="${replies}">
+            <tr class="align-top">
+              <th>${reply.id}</th>
+              <td>${reply.forPrintType1RegDate()}</td>
+              <td>${reply.forPrintType1UpdateDate()}</td>
+              <td>${reply.goodReactionPoint}</td>
+              <td>${reply.extra_writerName}</td>
+              <td>${reply.forPrintBody}</td>
+            </tr>
+          </c:forEach>
+        </tbody>
+      </table>
 	</div>
 </section>
 
