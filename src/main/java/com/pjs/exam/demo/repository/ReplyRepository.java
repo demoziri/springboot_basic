@@ -2,6 +2,7 @@ package com.pjs.exam.demo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -31,8 +32,6 @@ public interface ReplyRepository {
 	public int getLastInsertId();
 
 	
-	
-	
 	@Select("""
 			SELECT R.*,
 			M.nickname AS extra_writerName
@@ -44,4 +43,24 @@ public interface ReplyRepository {
 			ORDER BY R.id DESC
 			""")
 	public List<Reply> getForPrintReplies(int memberId, String relTypeCode, int relId);
+
+	
+	@Select("""
+			SELECT R.*,
+			M.nickname AS extra_writerName
+			FROM reply AS R
+			LEFT JOIN `member` AS M
+			ON r.memberId = M.id
+			WHERE R.id = #{id}
+			ORDER BY R.id DESC
+			""")
+	public Reply getForPrintReply(int memberId, int id);
+
+
+	
+	@Delete("""
+			DELETE FROM reply
+			WHERE id=#{id}
+			""")
+	public void deleteReply(int id);
 }
