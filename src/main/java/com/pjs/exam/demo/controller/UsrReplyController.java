@@ -82,7 +82,7 @@ public class UsrReplyController {
 		if ( Ut.empty(id) ) {
 			return rq.jsHistoryBack("id(을)를 입력해주세요.");
 		}
-
+		
 		Reply reply = replyService.getForPrintReply(rq.getLoginedMemberId(),id);
 		if(reply == null) {
 			return rq.jsHistoryBack(Ut.f("%번 댓글이 존재하지 않습니다.", id));

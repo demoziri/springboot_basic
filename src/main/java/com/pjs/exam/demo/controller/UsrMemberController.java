@@ -124,4 +124,13 @@ public class UsrMemberController {
 		}
 		return member;
 	}
+	
+	@RequestMapping("usr/member/myPage")
+	public String showMyPage() {
+
+		return "usr/member/myPage";
+	}
+	
+	
+	
 }
