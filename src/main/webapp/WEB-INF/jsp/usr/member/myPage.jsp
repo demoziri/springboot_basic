@@ -6,7 +6,8 @@
 
 <section class="mt-5">
   <div class="container mx-auto">
-	  <table>
+	 <div class="table-box-type-1">
+	 	 <table>
 	  <colgroup>
 	  	<col width="200"/>
 	  </colgroup>
@@ -21,7 +22,7 @@
 	  		</tr>
 	  		<tr>
 	  			<th>닉네임</th>
-	  			<td>${rq.loginedMember.nickName }</td>
+	  			<td>${rq.loginedMember.nickname }</td>
 	  		</tr>
 	  		<tr>
 	  			<th>이메일</th>
@@ -34,13 +35,16 @@
 	  		<tr>
 	  			<th>비고</th>
 	  			<td>
-	  				<a href="../member/checkPassword" class="btn btn-primary">회원정보 수정</a>
-	  				<button type="button" class="btn btn-outline btn-info" onclick="history_back();">뒤로가기</button>
+	  				<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify') }" class="btn btn-primary">회원정보 수정</a>
+	  				<button type="button" class="btn btn-outline btn-info" onclick="history.back();">뒤로가기</button>
 	  			</td>
 	  		</tr>
 	  		
 	  	</tbody>
 	  </table>
+	 	
+	 
+	 </div>
   </div>
 </section>
 
