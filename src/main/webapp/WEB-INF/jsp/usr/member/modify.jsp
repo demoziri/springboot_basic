@@ -67,7 +67,7 @@
 
 <section class="mt-5">
   <div class="container mx-auto px-3">
-	<form class="table-box-type-1" method="POST" action="../member/doModify" onsubmit="MemberModify_submit">
+	<form class="table-box-type-1" method="POST" action="../member/doModify" onsubmit="MemberModify_submit(this); return false;">
 	  <input type="hidden" name="memberModifyAuthkey" value="${param.memberModifyAuthkey}"/>
 	
       <table>
