@@ -3,7 +3,6 @@ package com.pjs.exam.demo.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pjs.exam.demo.repository.MemberRepository;
@@ -14,11 +13,13 @@ import com.pjs.exam.demo.vo.ResultData;
 @Service
 public class MemberService {
 	
-	@Autowired
-	private MemberRepository memberRepository;
 	
-	public MemberService(MemberRepository memberRepository) {
-		this.memberRepository = memberRepository; //Autowired보다 속도면에서 좋다(?)
+	private MemberRepository memberRepository;
+	private AttrService attrService;
+	public MemberService(MemberRepository memberRepository, AttrService attrService) {
+		this.memberRepository = memberRepository;
+		this.attrService=attrService;
+		//Autowired보다 속도면에서 좋다(?)
 	}
 
 	public ResultData<Integer> join(String loginId, String loginPw, 
@@ -52,6 +53,27 @@ public class MemberService {
 	
 	public MemberVO getMemberById(int id) {
 		return memberRepository.getMember(id);
+	}
+
+	public ResultData modify(int id, String loginPw, String name, String nickname, String email,
+			String cellphoneNo) {
+		memberRepository.modify(id, loginPw, name, nickname,email,cellphoneNo);
+		return ResultData.from("S-1", "회원정보가 수정되었습니다.");
+	}
+
+	public String genMemberModifyAuthKey(int id) {
+		String memberModifyAuthKey = Ut.getTempPassword(10);
+		
+		attrService.setValue("member",id,"extra","memberModifyAuthKey",memberModifyAuthKey,Ut.getDateStrLater(60*5));
+		return null;
+	}
+
+	public ResultData checkMemberModifyAuthKey(int actorId, String memberModifyAuthKey) {
+		String saved = attrService.getValue("member",actorId,"extra","memberModifyAuthKey");
+		if(!saved.equals(memberModifyAuthKey)) {
+			return ResultData.from("F-1", "일치하지 않거나 만료되었습니다.");
+		}
+		return ResultData.from("S-1", "정상적인 코드입니다.");
 	}
 
 	

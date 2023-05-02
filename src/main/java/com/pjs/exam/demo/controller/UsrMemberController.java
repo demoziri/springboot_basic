@@ -2,7 +2,6 @@ package com.pjs.exam.demo.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,8 +12,6 @@ import com.pjs.exam.demo.vo.MemberVO;
 import com.pjs.exam.demo.vo.ResultData;
 import com.pjs.exam.demo.vo.Rq;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrMemberController {
@@ -75,7 +72,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/login")
 	public String showLogin() {
-		return "/usr/member/login";
+		return "usr/member/login";
 	}
 	
 	@RequestMapping("/usr/member/doLogin")
@@ -128,26 +125,78 @@ public class UsrMemberController {
 	@RequestMapping("usr/member/myPage")
 	public String showMyPage() {
 
-		return "/usr/member/myPage";
+		return "usr/member/myPage";
 	}
 	
 	@RequestMapping("usr/member/checkPassword")
 	public String showCheckPassword() {
 		
-		return "/usr/member/checkPassword";
+		return "usr/member/checkPassword";
 	}
 	
 	@RequestMapping("/usr/member/doCheckPassword")
 	@ResponseBody
-	public String doCheckPassword(String loginPw, String replaceUri) {
-		if(Ut.empty(loginPw)) {
-			return rq.jsHistoryBack("loginPw(을)를 입력해주세요.");
-		}
-		if(rq.getLoginedMember().getLoginPw().equals(loginPw)==false) {
+	public String doCheckPassword(String loginPwInput, String replaceUri) {
+		
+		if(rq.getLoginedMember().getLoginPw().equals(loginPwInput)==false) {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
+		}
+		if(replaceUri.equals("../member/modify")) {
+			String memberModifyAuthKey=memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
+			replaceUri += "?memberModifyAuthKey" + memberModifyAuthKey;
 		}
 		return rq.jsReplace("", replaceUri);
 	}
 	
+	@RequestMapping("/usr/member/modify")
+	public String showModify(String memberModifyAuthKey) {
+		if(Ut.empty(memberModifyAuthKey)) {
+			return rq.historyBackJsOnview("memberModifyAuthkey 가 필요합니다.");
+		}
+		
+		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(),memberModifyAuthKey);
+		
+		if(checkMemberModifyAuthKeyRd.isFail()) {
+			return rq.historyBackJsOnview(checkMemberModifyAuthKeyRd.getMsg());
+		}
+		return "usr/member/modify";
+	}
+	
+	@RequestMapping("/usr/member/doModify")
+	@ResponseBody
+	public String doModify(String memberModifyAuthKey, String loginPw, String name, String nickname, String email, String cellphoneNo) {
+		
+		if(Ut.empty(memberModifyAuthKey)) {
+			return rq.historyBackJsOnview("memberModifyAuthkey 가 필요합니다.");
+		}
+		
+		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(),memberModifyAuthKey);
+		
+		if(checkMemberModifyAuthKeyRd.isFail()) {
+			return rq.historyBackJsOnview(checkMemberModifyAuthKeyRd.getMsg());
+		}
+		
+		
+		if (Ut.empty(loginPw)) {
+			loginPw = null;
+		}
+		if (Ut.empty(name)) {
+			loginPw = rq.jsHistoryBack("이름을 입력하세요.");
+		}
+		if (Ut.empty(nickname)) {
+			loginPw = rq.jsHistoryBack("닉네임을 입력하세요.");
+		}
+		if (Ut.empty(email)) {
+			loginPw = rq.jsHistoryBack("이메일을 입력하세요.");
+		}
+		if (Ut.empty(cellphoneNo)) {
+			loginPw = rq.jsHistoryBack("휴대전화번호를 입력하세요.");
+		}
+		
+		ResultData modifyRd = memberService.modify(rq.getLoginedMemberId(),loginPw,name,nickname,email,cellphoneNo);
+		
+			
+		return rq.jsReplace(modifyRd.getMsg(), "/");
+	}
 	
 }

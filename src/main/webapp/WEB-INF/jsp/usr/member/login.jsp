@@ -18,7 +18,7 @@
 	  		</tr>
 	  		<tr>
 	  			<th>로그인 비밀번호</th>
-	  			<td><input required="required" type="text" class="w-96 input input-bordered" name="loginPw" placeholder="로그인비밀번호" /></td>
+	  			<td><input required="required" type="password" class="w-96 input input-bordered" name="loginPw" placeholder="로그인비밀번호" /></td>
 	  		</tr>
 	  		<tr>
 	  			<th>로그인</th>
