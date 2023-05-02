@@ -58,7 +58,7 @@
         
         <c:if test="${!rq.logined }">
         <li>
-          <a href="/usr/member/login" class="h-full flex items-center px-3 hover:underline">
+          <a href="${rq.loginUri }" class="h-full flex items-center px-3 hover:underline">
             <span class="bg-green-400 p-2 rounded">로그인</span>
           </a>
         </li>
@@ -70,7 +70,7 @@
           </a>
         </li>
         <li>
-          <a href="/usr/member/doLogout" class="h-full flex items-center px-3 hover:underline ">
+          <a href="${rq.logoutUri }" class="h-full flex items-center px-3 hover:underline ">
             <span class="bg-red-400 p-2 rounded">로그아웃</span>
           </a>
         </li>

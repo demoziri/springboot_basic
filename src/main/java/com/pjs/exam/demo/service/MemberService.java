@@ -65,7 +65,7 @@ public class MemberService {
 		String memberModifyAuthKey = Ut.getTempPassword(10);
 		
 		attrService.setValue("member",id,"extra","memberModifyAuthKey",memberModifyAuthKey,Ut.getDateStrLater(60*5));
-		return null;
+		return memberModifyAuthKey;
 	}
 
 	public ResultData checkMemberModifyAuthKey(int actorId, String memberModifyAuthKey) {

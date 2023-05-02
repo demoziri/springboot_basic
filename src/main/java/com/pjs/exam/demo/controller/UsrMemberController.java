@@ -60,7 +60,7 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout() {
+	public String doLogout(@RequestParam(defaultValue="/") String afterLoginUri) {
 		
 		if(!rq.isLogined()) {
 			return rq.jsHistoryBack("로그아웃 상태입니다.");
@@ -144,7 +144,7 @@ public class UsrMemberController {
 		}
 		if(replaceUri.equals("../member/modify")) {
 			String memberModifyAuthKey=memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
-			replaceUri += "?memberModifyAuthKey" + memberModifyAuthKey;
+			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
 		}
 		return rq.jsReplace("", replaceUri);
 	}
