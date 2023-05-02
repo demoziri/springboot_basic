@@ -18,8 +18,8 @@
 			return;
 		}
 		
-		/* form.loginPw.value = form.loginPwInput.value; */
-		/* form.loginPwInput.value=''; */
+		/* form.loginPw.value = form.loginPwInput.value; 
+		form.loginPwInput.value='';  */
 		
 		MemberCheckPassword_submitDone = true;
 		form.submit();		
@@ -31,7 +31,7 @@
   <div class="container mx-auto">
   	<form class="table-box-type-1" action="../member/doCheckPassword" method="POST" onsubmit="MemberCheckPassword_submit(this); return false;">
   	<input type="hidden" name="replaceUri" value="${param.replaceUri }"/>
-  	<input type="hidden" name="loginPw" value="${rq.loginedMember.loginPw }"/>
+  	<input type="hidden" name="loginPw" value=""/>
 	  <table>
 	  <colgroup>
 	  	<col width="200"/>
