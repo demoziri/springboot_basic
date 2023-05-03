@@ -124,7 +124,7 @@ public class UsrMemberController {
 		if(member==null) {
 			return rq.jsHistoryBack("존재하지 않는 로그인 아이디 입니다.");
 		}
-		if(member.getLoginPw().equals(loginPw) == false) {
+		if(member.getLoginPw().equals(Ut.sha256(loginPw)) == false) {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
@@ -166,9 +166,9 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doCheckPassword")
 	@ResponseBody
-	public String doCheckPassword(String loginPwInput, String replaceUri) {
+	public String doCheckPassword(String loginPw, String replaceUri) {
 		
-		if(rq.getLoginedMember().getLoginPw().equals(loginPwInput)==false) {
+		if(rq.getLoginedMember().getLoginPw().equals(loginPw)==false) {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		if(replaceUri.equals("../member/modify")) {

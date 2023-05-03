@@ -79,6 +79,11 @@
 			return;
 		}
 		
+		form.loginPw.value = sha256(form.loginPwInput.value);
+		form.loginPwInput.value = '';
+		form.loginPwConfirm.value = '';
+		
+		
 		MemberJoin__submitDone = true;
 		form.submit();		
 	}
@@ -87,6 +92,7 @@
 		const form = $(el).closest('form').get(0);
 		
 		if(form.loginId.value.length == 0 ){
+			$(form.loginId).next().empty();
 			validLoginId = '';
 			return;
 		}
@@ -102,7 +108,14 @@
 			isAjax : 'Y',
 			loginId : form.loginId.value
 		}, function(data) {
-			$('.loginId-msg').html('<div class="mt-2">' + data.msg + '</div>');
+			var $message = $(form.loginId).next();
+			if(data.resultCode.substr(0,2)=="S-") {
+				$message.empty().append('<div class="mt-2 text-green-500">' + data.msg + '</div>');
+			}else {
+				$message.empty().append('<div class="mt-2 text-red-500">' + data.msg + '</div>');
+				validLoginId = '';
+			}
+			if(data.resultCode)
 			if(data.success) {
 				validLoginId = data.data1;
 			}else {
@@ -120,6 +133,7 @@
   <div class="container mx-auto px-3">
 	<form class="table-box-type-1" method="POST" action="../member/doJoin" onsubmit="MemberJoin_submit(this); return false;">
 	<input type="hidden" name="afterJoinUri" value="${param.afterJoinUri }"/>
+	<input type="hidden" name="loginPw"/>
       <table>
       <colgroup>
         <col width="200"/>
@@ -135,7 +149,7 @@
           <tr>
             <th>비밀번호</th>
             <td>
-            <input type="password" class="input input-bordered" name="loginPw" placeholder="비밀번호를 입력해주세요."/>
+            <input type="password" class="input input-bordered" name="loginPwInput" placeholder="비밀번호를 입력해주세요."/>
             </td>
           </tr>
           <tr>
