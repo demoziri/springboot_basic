@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageTitle" value="회원가입"/>
 <%@include file="../common/head.jspf" %>
-
+<!-- lodash lib -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 <script>
 	let MemberJoin_submitDone = false;
 	let validLoginId="";
@@ -110,6 +111,9 @@
 		},'json');
 	}
 	
+	/* 로그인 아이디 입력 시, 1초 후 실행 */
+	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup,1000);
+	
 </script>
 
 <section class="mt-5">
@@ -124,7 +128,7 @@
           <tr>
             <th>로그인아이디</th>
             <td>
-            	<input type="text" class="input input-bordered" name="loginId" placeholder="아이디를 입력해주세요." onkeyup="checkLoginIdDup(this);" autocomplete="off"/>
+            	<input type="text" class="input input-bordered" name="loginId" placeholder="아이디를 입력해주세요." onkeyup="checkLoginIdDupDebounced(this);" autocomplete="off"/>
             	<div class="loginId-msg"></div>
             </td>
           </tr>
